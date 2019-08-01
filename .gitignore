@@ -1,0 +1,12 @@
+# Editors
+.idea/
+
+# System
+.DS_
+._DS_
+
+# Composer
+vendor/*
+
+# DB
+*.sql
