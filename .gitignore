@@ -2,8 +2,8 @@
 .idea/
 
 # System
-.DS_
-._DS_
+.DS_*
+._DS_*
 
 # Composer
 vendor/*
