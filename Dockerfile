@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:latest-amd64
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -25,7 +25,8 @@ RUN add-apt-repository -y ppa:ondrej/php && \
         nullmailer \
         git nano \
         mariadb-client-10.1 \
-        nodejs build-essential && \
+        nodejs build-essential \
+        unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /init
 
