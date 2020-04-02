@@ -38,7 +38,7 @@ else
   echo "Network is missing!"
   echo "Beginning network installation..."
 
-  wp core multisite-install --allow-root --title="MoJ Intranet" \
+  wp core multisite-install --allow-root --title="MoJ D&T, Justice on the Web <-- change this" \
     --admin_user="${WPMS_S_ADMIN_USERNAME}" \
     --admin_email="${MOJ_ADMIN_EMAIL}" \
     --admin_password="${NETWORK_INIT_SA_PASSWORD}" \
@@ -163,5 +163,6 @@ else
   echo ""
   echo "USER : $WPMS_S_ADMIN_USERNAME"
   echo "LOGIN: $WP_SITEURL$MOJ_ADMIN_LOGIN_SCREEN"
-  echo ""
+  sleep 1
+  wp admin --allow-root
 fi

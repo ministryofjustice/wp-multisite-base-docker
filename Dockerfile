@@ -53,6 +53,7 @@ ADD conf/ /tmp/conf
 
 # Configure nginx
 RUN mv /tmp/conf/nginx/server.conf /etc/nginx/sites-available/ && \
+    mv /tmp/conf/nginx/multisite.conf /etc/nginx/ && \
     mv /tmp/conf/nginx/php-fpm.conf /etc/nginx/ && \
     mkdir /etc/nginx/whitelists/ && \
     echo "daemon off;" >> /etc/nginx/nginx.conf && \
