@@ -25,8 +25,21 @@ if [[ ! -f "$WPMS_LOCATION_WP_CONFIG" ]]; then
     printf "\n\nrequire_once(ABSPATH . 'wp-settings.php');\n"
   } >>"${WPMS_LOCATION_WP_CONFIG}"
 
-  echo "Done... configuring network..."
+  echo "Done... moving to configure network..."
 fi
+
+echo "Sleeping for 5"
+sleep 1
+echo "4 ..."
+sleep 1
+echo "3 ..."
+sleep 1
+echo "2 ..."
+sleep 1
+echo "1 ..."
+sleep 1
+echo "0 ... checking network status..."
+echo ""
 
 IS_NETWORK_INSTALLED=$(wp db query "SELECT IF( EXISTS(SELECT * FROM information_schema.tables WHERE table_name = '$DB_PREFIX$MOJ_NETWORK_TABLE_NAME'), 1, 0)" --allow-root --quiet)
 IS_NETWORK_INSTALLED=$(sed "2q;d" <<<"$IS_NETWORK_INSTALLED")
@@ -39,9 +52,9 @@ else
   echo "Beginning network installation..."
 
   wp core multisite-install --allow-root --title="MoJ D&T, Justice on the Web <-- change this" \
-    --admin_user="${WPMS_S_ADMIN_USERNAME}" \
-    --admin_email="${MOJ_ADMIN_EMAIL}" \
-    --admin_password="${NETWORK_INIT_SA_PASSWORD}" \
+    --admin_user="${WPMS_SA_USERNAME}" \
+    --admin_email="${WPMS_SA_EMAIL}" \
+    --admin_password="${WPMS_SA_PASSWORD}" \
     --skip-config \
     --skip-email \
     --quiet
@@ -148,7 +161,7 @@ else
         done
 
       else
-        echo "$MOJ_HQ_DIRECTORY does not exist here $MOJ_CURRENT_WORKING_DIR"
+        echo "$MOJ_DEFAULT_DIRECTORY does not exist here $MOJ_CURRENT_WORKING_DIR"
       fi
     else
       echo "Can't find a ZIP file.This script has a plugin that will import websites, please make sure there is a structured archive file available if you are expecting this functionality."
@@ -158,11 +171,8 @@ else
   fi
 
   echo ""
-  MOJ_ADMIN_LOGIN_SCREEN="/wp-admin/"
   echo -e "- - - - - - -  ${MOJ_COLOUR_GREEN}C O N G R A T U L A T I O N S${MOJ_COLOUR_END} - ${MOJ_COLOUR_GREEN}Multisite HAS BEEN INSTALLED${MOJ_COLOUR_END} - - - - - - -"
   echo ""
-  echo "USER : $WPMS_S_ADMIN_USERNAME"
-  echo "LOGIN: $WP_SITEURL$MOJ_ADMIN_LOGIN_SCREEN"
-  sleep 1
-  wp admin --allow-root
+  echo "USER : $WPMS_SA_USERNAME"
+  echo "LOGIN: ${WP_SITEURL}/wp-admin/"
 fi
