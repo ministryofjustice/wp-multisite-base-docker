@@ -10,6 +10,8 @@ MOJ_DEFAULT_SITE="default-site"
 MOJ_COLOUR_GREEN="\033[1;32m"
 MOJ_COLOUR_END="\033[0m"
 
+WPMS_LOCATION_WP_CONFIG='/bedrock/web/wp-config.php'
+
 # generate wp-config.php
 # check if the file exists...
 if [[ ! -f "$WPMS_LOCATION_WP_CONFIG" ]]; then
