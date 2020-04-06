@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # test for a multisite table
-MOJ_NETWORK_TABLE_NAME='sitemeta'
+MOJ_NETWORK_TABLE_NAME="sitemeta"
 # define the anchor
 MOJ_WP_ANCHOR="/*multisite-network*/"
 # admin email address
@@ -10,14 +10,14 @@ MOJ_DEFAULT_SITE="default-site"
 MOJ_COLOUR_GREEN="\033[1;32m"
 MOJ_COLOUR_END="\033[0m"
 
-WPMS_LOCATION_WP_CONFIG='/bedrock/web/wp-config.php'
+WPMS_LOCATION_WP_CONFIG="/bedrock/web/wp-config.php"
+MOJ_CONFIG_FAILED=0
+MOJ_COUNT_SUCCESS=0
 
 # generate wp-config.php
 # check if the file exists...
 if [[ ! -f "$WPMS_LOCATION_WP_CONFIG" ]]; then
-  echo "Starting with wp-config generation."
-
-  touch "${WPMS_LOCATION_WP_CONFIG}"
+  echo "Starting with wp-config generation here: $WPMS_LOCATION_WP_CONFIG"
 
   {
     printf "<?php\n"
@@ -25,9 +25,12 @@ if [[ ! -f "$WPMS_LOCATION_WP_CONFIG" ]]; then
     printf "require_once(dirname(__DIR__) . '/config/application.php');\n\n"
     printf "%s" "$MOJ_WP_ANCHOR"
     printf "\n\nrequire_once(ABSPATH . 'wp-settings.php');\n"
-  } >>"${WPMS_LOCATION_WP_CONFIG}"
+  } >>"$WPMS_LOCATION_WP_CONFIG" || MOJ_CONFIG_FAILED=1
 
   echo "Done... moving to configure network..."
+  if [[ "$MOJ_CONFIG_FAILED" == 0 ]]; then
+    MOJ_COUNT_SUCCESS=$((MOJ_COUNT_SUCCESS + 1))
+  fi
 fi
 
 echo "Sleeping for 5"
@@ -49,6 +52,7 @@ IS_NETWORK_INSTALLED=$(sed "2q;d" <<<"$IS_NETWORK_INSTALLED")
 # check, what did we get?
 if [[ "$IS_NETWORK_INSTALLED" == "1" ]]; then
   echo "The network is already installed."
+  MOJ_COUNT_SUCCESS=$((MOJ_COUNT_SUCCESS + 1))
 else
   echo "Network is missing!"
   echo "Beginning network installation..."
@@ -88,6 +92,7 @@ else
 
   echo "Done :)"
   echo ""
+  MOJ_COUNT_SUCCESS=$((MOJ_COUNT_SUCCESS + 1))
 
   # begin loading sites...
   echo "Moving to the /bedrock/import directory"
@@ -172,9 +177,11 @@ else
     echo "The import directory does not exist. This script has a plugin that will import websites, please make sure there is a structured archive file available inside a /bedrock/import directory if you are expecting this functionality."
   fi
 
-  echo ""
-  echo -e "- - - - - - -  ${MOJ_COLOUR_GREEN}C O N G R A T U L A T I O N S${MOJ_COLOUR_END} - ${MOJ_COLOUR_GREEN}Multisite HAS BEEN INSTALLED${MOJ_COLOUR_END} - - - - - - -"
-  echo ""
-  echo "USER : $WPMS_SA_USERNAME"
-  echo "LOGIN: ${WP_SITEURL}/wp-admin/"
+  if [[ "$MOJ_COUNT_SUCCESS" -ge 2 ]]; then
+    echo ""
+    echo -e "- - - - - - -  ${MOJ_COLOUR_GREEN}C O N G R A T U L A T I O N S${MOJ_COLOUR_END} - ${MOJ_COLOUR_GREEN}Multisite IS INSTALLED${MOJ_COLOUR_END} - - - - - - -"
+    echo ""
+    echo "USER : $WPMS_SA_USERNAME"
+    echo "LOGIN: ${WP_SITEURL}/wp-admin/"
+  fi
 fi
