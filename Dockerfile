@@ -14,7 +14,7 @@ ENV LC_ALL="en_GB.UTF-8" \
 
 # Upgrade & install packages
 RUN add-apt-repository -y ppa:ondrej/php && \
-    add-apt-repository ppa:ondrej/nginx && \
+    add-apt-repository -y ppa:ondrej/nginx && \
     curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confold" && \
