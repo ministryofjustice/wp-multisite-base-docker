@@ -82,13 +82,7 @@ else
   echo "Activating plugins..."
 
   wp plugin --network --allow-root activate \
-    advanced-custom-fields-pro \
-    classic-editor \
-    fast-user-switching \
-    wp-analytify \
-    analytify-analytics-dashboard-widget \
-    wp-rewrite-media-to-s3 \
-    wordpress-seo
+    wp-rewrite-media-to-s3
 
   echo "Done :)"
   echo ""
