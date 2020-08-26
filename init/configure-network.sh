@@ -70,6 +70,7 @@ else
 
   wp config set BLOG_ID_CURRENT_SITE 1 --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
   wp config set SITE_ID_CURRENT_SITE 1 --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
+  wp config set COOKIE_DOMAIN "\$_SERVER['HTTP_HOST']" --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
   wp config set DOMAIN_CURRENT_SITE "env('SERVER_NAME')" --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
   wp config set SUBDOMAIN_INSTALL false --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
   wp config set MULTISITE true --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
@@ -82,7 +83,8 @@ else
   echo "Activating plugins..."
 
   wp plugin --network --allow-root activate \
-    wp-rewrite-media-to-s3
+    wp-rewrite-media-to-s3 \
+    wordpress-seo
 
   echo "Done :)"
   echo ""
