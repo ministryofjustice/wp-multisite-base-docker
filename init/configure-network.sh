@@ -60,7 +60,7 @@ fi
 
 echo -e "Done... moving to configure network...\n"
 
-countdown "Breath in for 5"
+countdown "Breathe in for 5"
 countdown 4
 countdown 3
 countdown 2
