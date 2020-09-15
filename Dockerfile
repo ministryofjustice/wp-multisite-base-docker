@@ -55,6 +55,7 @@ ADD conf/ /tmp/conf
 RUN mv /tmp/conf/nginx/server.conf /etc/nginx/sites-available/ && \
     mv /tmp/conf/nginx/multisite.conf /etc/nginx/ && \
     mv /tmp/conf/nginx/php-fpm.conf /etc/nginx/ && \
+    mv /tmp/conf/nginx/headers.conf /etc/nginx/snippets/ && \
     mkdir /etc/nginx/whitelists/ && \
     echo "daemon off;" >> /etc/nginx/nginx.conf && \
     echo "# No frontend IP whitelist configured. Come one, come all!" > /etc/nginx/whitelists/site-wide.conf && \
