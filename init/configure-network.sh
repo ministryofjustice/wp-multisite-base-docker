@@ -38,8 +38,8 @@ rm -f "$WPMS_LOCATION_WP_CONFIG" || true
 echo -e "Generating ${MOJ_COLOUR_YELLOW}wp-config.php${MOJ_COLOUR_END} here: ${MOJ_COLOUR_GREEN}$WPMS_LOCATION_WP_CONFIG${MOJ_COLOUR_END}"
 
 {
-  printf "<?php\n"
-  printf "%s" "$MOJ_WP_COOKIE_ANCHOR\n"
+  printf "<?php\n\n"
+  printf "%s" "$MOJ_WP_COOKIE_ANCHOR"
   printf "\n\nrequire_once(dirname(__DIR__) . '/vendor/autoload.php');\n"
   printf "require_once(dirname(__DIR__) . '/config/application.php');\n\n"
   printf "%s" "$MOJ_WP_ANCHOR"
