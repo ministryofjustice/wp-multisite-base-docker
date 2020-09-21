@@ -4,6 +4,8 @@
 MOJ_NETWORK_TABLE_NAME="sitemeta"
 # define the config anchor
 MOJ_WP_ANCHOR="/*multisite-network*/"
+# define the config anchor
+MOJ_WP_COOKIE_ANCHOR="/*cookie-domain*/"
 # admin email address
 MOJ_DEFAULT_SITE="default-site"
 # colours
@@ -37,7 +39,8 @@ echo -e "Generating ${MOJ_COLOUR_YELLOW}wp-config.php${MOJ_COLOUR_END} here: ${M
 
 {
   printf "<?php\n"
-  printf "\nrequire_once(dirname(__DIR__) . '/vendor/autoload.php');\n"
+  printf "%s" "$MOJ_WP_COOKIE_ANCHOR\n"
+  printf "\n\nrequire_once(dirname(__DIR__) . '/vendor/autoload.php');\n"
   printf "require_once(dirname(__DIR__) . '/config/application.php');\n\n"
   printf "%s" "$MOJ_WP_ANCHOR"
   printf "\n\nrequire_once(ABSPATH . 'wp-settings.php');\n"
@@ -49,7 +52,7 @@ if [[ "$MOJ_CONFIG_FAILED" == 0 ]]; then
 
   wp config set BLOG_ID_CURRENT_SITE 1 --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
   wp config set SITE_ID_CURRENT_SITE 1 --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
-  wp config set COOKIE_DOMAIN "env('HTTP_HOST')" --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
+  wp config set COOKIE_DOMAIN "\$_SERVER['HTTP_HOST'] ?? ''" --raw --anchor="$MOJ_WP_COOKIE_ANCHOR" --placement='after' --allow-root
   wp config set DOMAIN_CURRENT_SITE "env('SERVER_NAME')" --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
   wp config set SUBDOMAIN_INSTALL false --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
   wp config set MULTISITE true --raw --anchor="$MOJ_WP_ANCHOR" --placement='after' --allow-root
