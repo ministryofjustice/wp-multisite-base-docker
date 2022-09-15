@@ -18,6 +18,7 @@ RUN add-apt-repository -y ppa:ondrej/php && \
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confold" && \
+    apt-get install -y php8.1 && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         php8.1-cli php8.1-curl php8.1-fpm php8.1-gd php8.1-mbstring php8.1-mysql php8.1-readline php-xdebug php8.1-xml php8.1-zip php8.1-imagick \
         nginx nginx-extras\
