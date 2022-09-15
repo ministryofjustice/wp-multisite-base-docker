@@ -1,6 +1,6 @@
 # WordPress Base for Docker
 
-A base docker image for running 12 factor WordPress applications.
+A base docker image for running 12 factor WordPress Multisite applications.
 
 ## Intended Usage
 
