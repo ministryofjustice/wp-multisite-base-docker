@@ -123,7 +123,7 @@ RUN echo "This file exists to ensure that yas3fs doesn't delete the /tmp directo
 # BUILD TIME COMMANDS
 ###
 
-# Generate the Pingdom IP address whitelist
+# Generate the Pingdom IP Address whitelist
 ADD build/ /tmp/build
 RUN chmod +x /tmp/build/generate-pingdom-whitelist.sh && sleep 1 && \
     /tmp/build/generate-pingdom-whitelist.sh /etc/nginx/whitelists/pingdom.conf && \
