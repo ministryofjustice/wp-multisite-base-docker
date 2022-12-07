@@ -6,4 +6,4 @@
 # race conditions and excess 'top of the minute' load.
 
 # m h dom mon dow user	command
-* * * * * root sleep `shuf -i0-15 -n1` && curl http://localhost/wp/wp-cron.php >/dev/null 2>&1
+* * * * * root sleep `shuf -i0-15 -n1` && curl https://jotwpublic.prod.wp.dsd.io/wp-cron-multisite.php >/dev/null 2>&1
